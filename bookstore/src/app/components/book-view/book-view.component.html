@@ -1,0 +1,58 @@
+<bs-header></bs-header>
+
+<main class="p-6 flex flex-col max-w-[1200px] m-auto">
+    <div class="flex flex-col md:flex-row gap-8 items-center md:items-start md:gap-10">
+        <div class="flex flex-col w-1/3 max-w-[260px] min-h-[400px]">
+            <div class="h-full grow bg-gray-50 rounded flex flex-col items-center justify-center">
+                <!-- <img/> -->
+                <span class="opacity-25">Image</span>
+            </div>
+            <div class="mt-3 flex items-center">
+                <mat-icon class="me-2">account_circle</mat-icon>
+                <span>{{book?.author}}</span>
+            </div>
+            <bs-star-rating [rating]="book?.rating ?? 0"></bs-star-rating>
+        </div>
+        <div class="flex flex-col w-2/3">
+            <h1>{{book?.title}}</h1>
+            <p>{{book?.description}}</p>
+            <div class="flex flex-row gap-2 my-4">
+                <button class="border p-1 border-black rounded min-w-[71px]">Favorite</button>
+                <button class="border p-1 border-black rounded min-w-[71px]">Share</button>
+            </div>
+            <div>
+                <span>Category: </span> <span>#{{book?.category}}</span>
+            </div>
+            <div>
+                <span>Year: </span> <span>{{book?.year}}</span>
+            </div>
+            <div>
+                <span>Number of Pages: </span> <span>{{book?.pages}}</span>
+            </div>
+            <div class="my-3">
+                <span>Publisher: </span> <span>{{book?.publisher}}</span>
+            </div>
+            <div>
+                <span>ISBN-13: </span> <span>{{book?.isbn}}</span>
+            </div>
+
+            <button class="border border-black rounded p-2 w-[200px] self-center mt-4">BUY</button>
+        </div>
+    </div>
+    <h1 class="!mt-16">Other Books you may like</h1>
+    <swiper [slidesPerView]="'auto'" [spaceBetween]="20" [autoHeight]="true"  [pagination]="{ clickable: true }" 
+    #swiper class="swiper max-w-full mb-4" [direction]="'horizontal'">
+        <!-- (swiper)="onSwiper($event)" (slideChange)="onSlideChange()" -->
+        @for (book of books; track book) {
+            <ng-template swiperSlide class="!w-auto" >
+                <div class="flex flex-col " (click)="navigateToBookView(book)">
+                    <div class="w-[180px] h-[260px] grow bg-gray-50 rounded flex flex-col items-center justify-center">
+                        <!-- <img/> -->
+                        <span class="opacity-25">Image</span>
+                    </div>
+                    <div class="w-[180px] self-center mt-2">{{book.title}}</div>
+                </div>
+            </ng-template>
+        }
+    </swiper>
+</main>
