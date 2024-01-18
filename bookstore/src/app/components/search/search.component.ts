@@ -42,7 +42,7 @@ export class BookStoreSearchComponent {
 
 
     constructor(private router: Router, private service: BooksService) {
-        this.service.setBooks();
+        
         this.service.getBooks();
     }
 

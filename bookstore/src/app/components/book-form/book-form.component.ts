@@ -67,7 +67,6 @@ export class BookStoreBookFormComponent {
 
     onSubmit() {
         this.submitted = true;
-        console.log("this.formGroup");
         
         if (!this.formGroup.valid) {
             return;

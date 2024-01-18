@@ -20,18 +20,11 @@ export class BooksService {
 
     }
 
-    setBooks() {
-       // this.books.next(savedBooks);
-    }
-
+ 
     createBook(newBook: Book) {
-        console.log("newBook", newBook);
-       
-
-        const currentValue: Book[] = this.books.value;
         const updatedValue = [newBook, ...this.books.value];
         this.books.next(updatedValue);
-        console.log("this.books.value", this.books.value);
+        
         localStorage.setItem('books', JSON.stringify(updatedValue));
     }
 }
