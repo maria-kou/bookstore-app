@@ -1,0 +1,216 @@
+<bs-header></bs-header>
+
+<main class="p-6 flex flex-col max-w-[1200px] m-auto">
+
+    <h1 class="!mt-16 text-center">Add new Book</h1>
+
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+
+        <div class="border border-black py-6 px-4 flex flex-col md:flex-row gap-4">
+            <div class="md:w-1/2 flex flex-col gap-2">
+                <div class="block md:hidden self-center">
+                    <ng-container *ngTemplateOutlet="uploadImage"></ng-container>
+                </div>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Title</mat-label>
+                    <input matInput [formControlName]="'title'">
+                    @if ((submitted || form['title'].touched) && form['title'].invalid &&
+                    form['title']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                    @if ((submitted || form['title'].touched) && form['title'].invalid &&
+                    (form['title']?.errors?.['minlength'] || form['title']?.errors?.['maxlength']))
+                    {
+                    <mat-error>The Title must be between 10 and 120 characters.</mat-error>
+                    }
+                    @if ((submitted || form['title'].touched) && form['title'].invalid &&
+                    form['title']?.errors?.['pattern'])
+                    {
+                    <mat-error>The following special characters are allowed: &#64;”#&*!</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Description</mat-label>
+                    <input matInput [formControlName]="'subtitle'">
+                    @if ((submitted || form['subtitle'].touched) && form['subtitle'].invalid &&
+                    form['subtitle']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                    @if ((submitted || form['subtitle'].touched) && form['subtitle'].invalid &&
+                    form['subtitle']?.errors?.['maxlength'])
+                    {
+                    <mat-error>The description must be limited to a maximum of 520 characters.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Categories</mat-label>
+                    <input matInput [formControlName]="'categories'">
+                    <mat-hint>Please separate categories by comma</mat-hint>
+                    @if ((submitted || form['categories'].touched) && form['categories'].invalid &&
+                    form['categories']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                    @if ((submitted || form['categories'].touched) && form['categories'].invalid &&
+                    form['categories']?.errors?.['pattern'])
+                    {
+                    <mat-error>The categories must be limited to four.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Author Name</mat-label>
+                    <input matInput [formControlName]="'author'">
+                    @if ((submitted || form['author'].touched) && form['author'].invalid &&
+                    form['author']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Second Author Name</mat-label>
+                    <input matInput [formControlName]="'secondAuthor'">
+                    @if ((submitted || form['secondAuthor'].touched) && form['secondAuthor'].invalid &&
+                    form['secondAuthor']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Third Author Name</mat-label>
+                    <input matInput [formControlName]="'thirdAuthor'">
+                    @if ((submitted || form['thirdAuthor'].touched) && form['thirdAuthor'].invalid &&
+                    form['thirdAuthor']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Publisher</mat-label>
+                    <input matInput [formControlName]="'publisher'">
+                    @if ((submitted || form['publisher'].touched) && form['publisher'].invalid &&
+                    form['publisher']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                    @if ((submitted || form['publisher'].touched) && form['publisher'].invalid &&
+                    (form['publisher']?.errors?.['minlength'] || form['publisher']?.errors?.['maxlength']))
+                    {
+                    <mat-error>The Description must be between 5 and 60 characters.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Year</mat-label>
+                    <input matInput [formControlName]="'year'">
+                    @if ((submitted || form['year'].touched) && form['year'].invalid &&
+                    form['year']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                    @if ((submitted || form['year'].touched) && form['year'].invalid &&
+                    form['year']?.errors?.['pattern'])
+                    {
+                    <mat-error>The Year must be 4 digits.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>Page Numbers</mat-label>
+                    <input matInput [formControlName]="'pages'">
+                    @if ((submitted || form['pages'].touched) && form['pages'].invalid &&
+                    form['pages']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                    @if ((submitted || form['pages'].touched) && form['pages'].invalid &&
+                    (form['pages']?.errors?.['max'] || form['pages']?.errors?.['pattern']))
+                    {
+                    <mat-error>The Page Numbers must be digits and limited to 9999.</mat-error>
+                    }
+                </mat-form-field>
+
+            </div>
+            <div class="md:w-1/2 flex flex-col justify-end gap-2">
+
+                <div class="hidden md:block self-center">
+                    <ng-container *ngTemplateOutlet="uploadImage"></ng-container>
+                </div>
+
+
+                <mat-form-field class="w-full">
+                    <mat-label>Rating</mat-label>
+                    <input matInput [formControlName]="'rating'">
+                    <mat-hint>Please provide a rating on a scale of 1 to 5.</mat-hint>
+                    @if ((submitted || form['rating'].touched) && form['rating'].invalid && (form['rating']?.errors?.['max'] || form['rating']?.errors?.['pattern']))
+                    {
+                    <mat-error>The Rating must be only digits not greater than 5.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>ISBN-10</mat-label>
+                    <input matInput [formControlName]="'isbn10'">
+                    @if ((submitted || form['isbn10'].touched) && form['isbn10'].invalid &&
+                    form['isbn10']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                    @if ((submitted || form['isbn10'].touched) && form['isbn10'].invalid &&
+                    form['isbn10']?.errors?.['pattern']) {
+                    <mat-error>The ISBN-10 must be 10 digits.</mat-error>
+                    }
+                </mat-form-field>
+
+                <mat-form-field class="w-full">
+                    <mat-label>ISBN-13</mat-label>
+                    <input matInput [formControlName]="'isbn'">
+                    @if ((submitted || form['isbn'].touched) && form['isbn'].invalid &&
+                    form['isbn']?.errors?.['required'])
+                    {
+                    <mat-error>The field is required.</mat-error>
+                    }
+                    @if ((submitted || form['isbn'].touched) && form['isbn'].invalid &&
+                    form['isbn']?.errors?.['pattern']) {
+                    <mat-error>The ISBN-13 must be 13 digits.</mat-error>
+                    }
+                </mat-form-field>
+            </div>
+        </div>
+        <button type="button" mat-fab color="accent" class="float-end my-4" (click)="resetForm()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button type="button" matRipple class="border border-black rounded p-2 w-[200px] self-center mt-16"
+            type="submit">Save</button>
+    </form>
+
+</main>
+
+<ng-template #uploadImage>
+    <button class="rounded border border-gray-300 w-[200px] h-[200px] p-2 mb-12" (click)="fileInput.click();"
+        type="button">
+        <div class="avatar-upload">
+            <div class="avatar-edit hidden">
+                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg .gif" #fileInput
+                    (change)="uploadFile($event)" />
+            </div>
+            @if(!imageUrl) {
+            <div class="opacity-50">Import image .jpg,.png,.gif</div>
+            } @else {
+            <div class="avatar-preview w-[184px] h-[184px]">
+                <div class="w-full h-full bg-cover bg-no-repeat bg-center" id="imagePreview"
+                    [style.backgroundImage]="'url('+ imageUrl +')'">
+                </div>
+            </div>
+            }
+        </div>
+    </button>
+</ng-template>

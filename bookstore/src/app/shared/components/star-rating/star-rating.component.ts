@@ -11,20 +11,19 @@ import {MatButtonModule} from '@angular/material/button';
   standalone: true,
   imports: [CommonModule, MatIconModule, MatTooltipModule, MatButtonModule],
   template: `
-  <button mat-icon-button [color]="'primary'" *ngFor="let ratingId of ratingArr; index as i" [id]="'star_'+i"
-      (click)="onClick(i+1)" [matTooltip]="ratingId+1" matTooltipPosition="above">
+  <div  class="flex flex-row">
+    <div class="text-black" *ngFor="let ratingId of ratingArr; index as i" [id]="'star_'+i">
       <mat-icon>
-          {{showIcon(i)}}
+        {{showIcon(i)}}
       </mat-icon>
-  </button>
+    </div>
+  </div>
   `
 })
 export class BookStoreStarRatingComponent {
-    @Input() rating: number = 3;
+    @Input() rating: number  = 3;
     @Input() starCount: number = 5;
-    @Output() ratingUpdated = new EventEmitter();
-  
-    private snackBarDuration: number = 2000;
+    
     ratingArr: any[] = [];
   
     constructor(private snackBar: MatSnackBar) {
@@ -32,19 +31,10 @@ export class BookStoreStarRatingComponent {
   
   
     ngOnInit() {
-      console.log("a "+this.starCount)
+      
       for (let index: number = 0; index < this.starCount; index++) {
         this.ratingArr.push(index);
       }
-    }
-    onClick(rating:number) {
-      console.log(rating)
-      this.snackBar.open('You rated ' + rating + ' / ' + this.starCount, '', {
-        duration: this.snackBarDuration
-      });
-      this.rating = rating;
-      this.ratingUpdated.emit(rating);
-      return false;
     }
   
     showIcon(index:number) {

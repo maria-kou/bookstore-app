@@ -12,6 +12,7 @@ import { Book } from '../../shared/models/book';
 import { BookStoreStarRatingComponent } from '../../shared/components/star-rating/star-rating.component';
 import { BookStoreStarBookResultsComponent } from './search-book-results.component';
 import { Router } from '@angular/router';
+import { BooksService } from '../../services/books.service';
 
 @Component({
     selector: 'bs-search',
@@ -28,82 +29,82 @@ import { Router } from '@angular/router';
     templateUrl: './search.component.html',
 })
 export class BookStoreSearchComponent {
-    value: any = '';
-    books: Book[] = books;
-    resultBooks: Book[] = books;
+
+    books: Book[] = [];
+    resultBooks: Book[] = [];
     bookCategories: string[] = [];
     bookPublishedYears: number[] = [];
 
-
+    searchTerm: any = '';
     selectedCategory: string;
     selectedYear: number;
-    filteredBooks: Book[] = [];
 
-    constructor(private router: Router) {
-        let categories: any[] = [];
-        let years: number[] = [];
 
-        this.books.forEach(book => {
-            categories.push(book.category);
-            years.push(new Date(book.published).getFullYear())
+
+    constructor(private router: Router, private service: BooksService) {
+        this.service.setBooks();
+        this.service.getBooks();
+    }
+
+    ngOnInit() {
+        this.service.books.subscribe(data => {
+            if (data) {
+                this.books = data;
+                
+                this.resultBooks = data;
+
+                let categories: any[] = [];
+                let years: number[] = [];
+
+                this.books.forEach(book => {
+                    book.categories?.forEach(c => categories.push(c));
+                    years.push(new Date(book.published).getFullYear());
+                })
+
+                this.bookCategories = [...new Set(categories)];
+                
+                this.bookPublishedYears = [...new Set(years)].sort(function (a, b) { return a - b });
+            }
         })
-
-        this.bookCategories = [...new Set(categories)];
-        this.bookPublishedYears = [...new Set(years)].sort(function (a, b) { return a - b });
-
     }
 
     search(term: string) {
-        //this.filteredBooks = [];
-
-        this.resultBooks = [];
-        const data = this.filteredBooks ?? this.books;
-        if (term != '') {
-            data.forEach(item => {
-                let match = item.title.toLowerCase().includes(term.toLowerCase());
-                if (match) {
-                    this.resultBooks.push(item);
-                }
-            })
-            //return this.resultBooks;
-        } else {
-            this.resultBooks = this.books;
-        }
-
-        console.log("this.selectedYear", this.selectedYear);
-        // if (this.selectedYear) {
-            this.onYearChange(this.selectedYear);
-        // }
-       
-        // if (this.selectedCategory) {
-            this.onCategoryChange(this.selectedCategory);
-        // }
-        
-
+        this.filterArray();
     }
 
 
     onCategoryChange(selectedCategory: string) {
-
-        if (selectedCategory) {
-            this.filteredBooks = this.resultBooks.filter(book => book.category === selectedCategory);
-        } else if (selectedCategory == 'empty') {
-            this.filteredBooks = this.resultBooks;
-        }
-
+        this.filterArray();
     }
 
-    onYearChange(selectedYear: number | string) {
-        if (selectedYear) {
-            this.filteredBooks = this.resultBooks.filter(book => new Date(book.published).getFullYear() === selectedYear);
-        } else if (selectedYear == 'empty') {
-            this.filteredBooks = this.resultBooks;
+    onYearChange(selectedYear: number) {
+        this.filterArray();
+    }
+
+    filterArray() {
+        this.resultBooks = [];
+        if (this.searchTerm != '') {
+            this.books.forEach(item => {
+                let match = item.title.toLowerCase().includes(this.searchTerm.toLowerCase());
+                if (match) {
+                    this.resultBooks.push(item);
+                }
+            })
+        } else {
+            this.resultBooks = this.books;
         }
 
+        if (this.selectedYear) {
+            this.resultBooks = this.resultBooks.filter(book => new Date(book.published).getFullYear() === this.selectedYear);
+        }
+
+        if (this.selectedCategory) {
+            this.resultBooks = this.resultBooks.filter(book => book.categories?.find(c => c === this.selectedCategory));
+
+        }
     }
 
     navigateToBookView(book: Book) {
-        console.log("b", book);
-        this.router.navigate(['/category', {bookIsbn: book.isbn}])
+        this.router.navigate(['/category', { bookIsbn: book.isbn }])
     }
 }

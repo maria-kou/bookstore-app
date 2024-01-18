@@ -3,9 +3,9 @@
 <main class="p-6 flex flex-col max-w-[1200px] m-auto">
     <mat-form-field class="example-form-field w-full">
         <mat-label>Search</mat-label>
-        <input matInput type="text" [(ngModel)]="value" (ngModelChange)="search($event)">
-        @if (value) {
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <input matInput type="text" [(ngModel)]="searchTerm" (ngModelChange)="search($event)">
+        @if (searchTerm) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm=''">
             <mat-icon>close</mat-icon>
         </button>
         }
@@ -16,9 +16,9 @@
         <mat-form-field class="w-1/2">
             <mat-label>Categories</mat-label>
             <mat-select [(value)]="selectedCategory" (selectionChange)="onCategoryChange(selectedCategory)">
-                <mat-option [value]="'empty'">Clear</mat-option>
+                <mat-option>Clear</mat-option>
                 @for (category of bookCategories; track category) {
-                    <mat-option [value]="category">{{category | titlecase}}</mat-option>
+                <mat-option [value]="category">{{category | titlecase}}</mat-option>
                 }
             </mat-select>
         </mat-form-field>
@@ -26,19 +26,15 @@
         <mat-form-field class="w-1/2">
             <mat-label>Year</mat-label>
             <mat-select [(value)]="selectedYear" (selectionChange)="onYearChange(selectedYear)">
-                <mat-option [value]="'empty'">Clear</mat-option>
+                <mat-option>Clear</mat-option>
                 @for (year of bookPublishedYears; track year) {
-                    <mat-option [value]="year">{{year}}</mat-option>
+                <mat-option [value]="year">{{year}}</mat-option>
                 }
             </mat-select>
         </mat-form-field>
     </div>
 
     <div class="mt-6 flex flex-row ">
-        @if (filteredBooks?.length == 0) {
-            <bs-book-results  [data]="resultBooks" (onBookClick)="navigateToBookView($event)"></bs-book-results>
-        } @else {
-            <bs-book-results [data]="filteredBooks" (onBookClick)="navigateToBookView($event)"></bs-book-results>
-        } 
+        <bs-book-results [data]="resultBooks" (onBookClick)="navigateToBookView($event)"></bs-book-results>
     </div>
 </main>

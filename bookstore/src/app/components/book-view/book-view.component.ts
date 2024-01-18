@@ -3,15 +3,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookStoreHeaderComponent } from '../../shared/components/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from '../../shared/models/book';
 import { books } from '../../shared/books';
 import { BookStoreStarRatingComponent } from '../../shared/components/star-rating/star-rating.component';
-// import { SwiperComponent } from "swiper/angular";
 import { SwiperModule } from 'swiper/angular';
 import Swiper from "swiper";
+import { BooksService } from '../../services/books.service';
 
-// import Swiper core and required components
 
 
 @Component({
@@ -27,26 +26,34 @@ import Swiper from "swiper";
 export class BookStoreBookViewComponent {
     book: Book | undefined = new Book();
     books: Book[] = [];
+    bookIsbn: string = '';
 
-    constructor(private route: ActivatedRoute) {
-        const bookIsbn = this.route.snapshot.paramMap.get('bookIsbn');
+    constructor(private route: ActivatedRoute, private router: Router, private service: BooksService) {
+        this.service.getBooks();
 
-        this.books = books.filter(book => book != this.book);
-        this.book = books.find(book => book.isbn === bookIsbn);
-        console.log("this.book", this.route.snapshot.paramMap);
+        this.service.books.subscribe(data => {
+            if (data) {
 
-        this.book!['year'] = new Date(this.book?.published!)?.getFullYear()!;
+                this.books = data;
+            }
+        })
 
-        // var swiper = new Swiper('.swiper', {
-        //     'direction': 'horizontal'
-        //  });
+        this.route.params.subscribe(params => {
+            this.bookIsbn = params['bookIsbn'];
+
+            this.book = this.books.find(book => book.isbn === this.bookIsbn);
+            this.book!['year'] = new Date(this.book?.published!)?.getFullYear()!;
+            this.books = this.books.filter(book => book != this.book);
+        });
+    }
+
+    ngOnInit() {
+
     }
 
 
-    navigateToBookView(book: Book) {
-        console.log("b", book);
-        //this.router.navigate(['/category', {bookIsbn: book.isbn}])
-        this.book = book;
-        this.books = books.filter(book => book != this.book);
+    selectBook(book: Book) {
+       
+        this.router.navigate(['/category', { bookIsbn: book.isbn }]);
     }
 }
