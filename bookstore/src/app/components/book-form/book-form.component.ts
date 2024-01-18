@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookStoreHeaderComponent } from '../../shared/components/header/header.component';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,7 +40,6 @@ export class BookStoreBookFormComponent {
     get form() { return this.formGroup.controls};
 
     constructor(private fb: FormBuilder,
-        private cd: ChangeDetectorRef,
         private service: BooksService,
         private _snackBar: MatSnackBar) {
 
@@ -52,14 +51,12 @@ export class BookStoreBookFormComponent {
             isbn: new FormControl("", [Validators.required, Validators.pattern('^[0-9]{13}$')]),
             isbn10: new FormControl("", [Validators.required, Validators.pattern('^[0-9]{10}$')]),
             title: new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(120), Validators.pattern('^[ A-Za-z@”#&*!]*$')]),
-            subtitle: new FormControl("", [Validators.required, Validators.maxLength(512)]),
+            subtitle: new FormControl("", [Validators.required, Validators.maxLength(512), Validators.pattern('^[A-Z][a-zA-Z\\s]*$')]),
             author: new FormControl("", Validators.required),
             secondAuthor: new FormControl(""),
             thirdAuthor: new FormControl(""),
             publisher: new FormControl("", [Validators.required, Validators.minLength(5), Validators.maxLength(60)]),
-            pages: new FormControl("", [Validators.required, Validators.max(9999), Validators.pattern('^[0-9]$')]),
-            description: new FormControl("", Validators.required),
-            website: new FormControl("", Validators.required), 
+            pages: new FormControl("", [Validators.required, Validators.max(9999), Validators.pattern('^[0-9]*$')]), 
             categories: new FormControl("", [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]+(?:,[a-zA-Z0-9 ]+){0,3}$')]),            
             rating: new FormControl("", [Validators.max(5), Validators.pattern('^[0-9]{1}$')]),
             year: new FormControl("", [Validators.required, Validators.pattern('^[0-9]{4}$')]),
@@ -70,6 +67,8 @@ export class BookStoreBookFormComponent {
 
     onSubmit() {
         this.submitted = true;
+        console.log("this.formGroup");
+        
         if (!this.formGroup.valid) {
             return;
         }
@@ -102,8 +101,6 @@ export class BookStoreBookFormComponent {
 
                 
             }
-            // ChangeDetectorRef since file is loading outside the zone
-            //this.cd.markForCheck();
         }
     }
 
@@ -115,7 +112,6 @@ export class BookStoreBookFormComponent {
     openSnackBar() {
         this._snackBar.open('The book is saved!', '', {duration: 3000});
       }
-
 
 }
 

@@ -5,10 +5,8 @@ import { BookStoreHeaderComponent } from '../../shared/components/header/header.
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from '../../shared/models/book';
-import { books } from '../../shared/books';
 import { BookStoreStarRatingComponent } from '../../shared/components/star-rating/star-rating.component';
 import { SwiperModule } from 'swiper/angular';
-import Swiper from "swiper";
 import { BooksService } from '../../services/books.service';
 
 

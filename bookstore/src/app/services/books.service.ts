@@ -11,7 +11,7 @@ export class BooksService {
 
 
     getBooks() {
-        //let booksArray = localStorage.setItem('books', JSON.stringify(books));
+       
         let storageBook = JSON.parse(localStorage.getItem('books')!) ?? [];
         const books: Book[] = [...storageBook, ...savedBooks];
 
@@ -26,16 +26,12 @@ export class BooksService {
 
     createBook(newBook: Book) {
         console.log("newBook", newBook);
-        //this.books.unshift(new Book(book))
-        //this.service.books.next(this.books)
-        //this.getBooks();
+       
 
         const currentValue: Book[] = this.books.value;
         const updatedValue = [newBook, ...this.books.value];
         this.books.next(updatedValue);
         console.log("this.books.value", this.books.value);
         localStorage.setItem('books', JSON.stringify(updatedValue));
-
-        // console.log("JSON.parse(localStorage.getItem('books')!)", JSON.parse(localStorage.getItem('books')!));
     }
 }

@@ -2,7 +2,7 @@
 
 <main class="p-6 flex flex-col max-w-[1200px] m-auto">
 
-    <h1 class="!mt-16 text-center">Add new Book</h1>
+    <h1 class="!mt-8 text-center">Add new Book</h1>
 
     <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
 
@@ -16,17 +16,17 @@
                     <mat-label>Title</mat-label>
                     <input matInput [formControlName]="'title'">
                     @if ((submitted || form['title'].touched) && form['title'].invalid &&
-                    form['title']?.errors?.['required'])
+                    form['title'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
                     @if ((submitted || form['title'].touched) && form['title'].invalid &&
-                    (form['title']?.errors?.['minlength'] || form['title']?.errors?.['maxlength']))
+                    (form['title'].errors?.['minlength'] || form['title'].errors?.['maxlength']))
                     {
                     <mat-error>The Title must be between 10 and 120 characters.</mat-error>
                     }
                     @if ((submitted || form['title'].touched) && form['title'].invalid &&
-                    form['title']?.errors?.['pattern'])
+                    form['title'].errors?.['pattern'])
                     {
                     <mat-error>The following special characters are allowed: &#64;”#&*!</mat-error>
                     }
@@ -36,14 +36,19 @@
                     <mat-label>Description</mat-label>
                     <input matInput [formControlName]="'subtitle'">
                     @if ((submitted || form['subtitle'].touched) && form['subtitle'].invalid &&
-                    form['subtitle']?.errors?.['required'])
+                    form['subtitle'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
                     @if ((submitted || form['subtitle'].touched) && form['subtitle'].invalid &&
-                    form['subtitle']?.errors?.['maxlength'])
+                    form['subtitle'].errors?.['maxlength'])
                     {
                     <mat-error>The description must be limited to a maximum of 520 characters.</mat-error>
+                    }
+                    @if ((submitted || form['subtitle'].touched) && form['subtitle'].invalid &&
+                    form['subtitle'].errors?.['pattern'])
+                    {
+                    <mat-error>The first letter must be capital.</mat-error>
                     }
                 </mat-form-field>
 
@@ -52,12 +57,12 @@
                     <input matInput [formControlName]="'categories'">
                     <mat-hint>Please separate categories by comma</mat-hint>
                     @if ((submitted || form['categories'].touched) && form['categories'].invalid &&
-                    form['categories']?.errors?.['required'])
+                    form['categories'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
                     @if ((submitted || form['categories'].touched) && form['categories'].invalid &&
-                    form['categories']?.errors?.['pattern'])
+                    form['categories'].errors?.['pattern'])
                     {
                     <mat-error>The categories must be limited to four.</mat-error>
                     }
@@ -67,7 +72,7 @@
                     <mat-label>Author Name</mat-label>
                     <input matInput [formControlName]="'author'">
                     @if ((submitted || form['author'].touched) && form['author'].invalid &&
-                    form['author']?.errors?.['required'])
+                    form['author'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
@@ -77,7 +82,7 @@
                     <mat-label>Second Author Name</mat-label>
                     <input matInput [formControlName]="'secondAuthor'">
                     @if ((submitted || form['secondAuthor'].touched) && form['secondAuthor'].invalid &&
-                    form['secondAuthor']?.errors?.['required'])
+                    form['secondAuthor'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
@@ -87,7 +92,7 @@
                     <mat-label>Third Author Name</mat-label>
                     <input matInput [formControlName]="'thirdAuthor'">
                     @if ((submitted || form['thirdAuthor'].touched) && form['thirdAuthor'].invalid &&
-                    form['thirdAuthor']?.errors?.['required'])
+                    form['thirdAuthor'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
@@ -97,12 +102,12 @@
                     <mat-label>Publisher</mat-label>
                     <input matInput [formControlName]="'publisher'">
                     @if ((submitted || form['publisher'].touched) && form['publisher'].invalid &&
-                    form['publisher']?.errors?.['required'])
+                    form['publisher'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
                     @if ((submitted || form['publisher'].touched) && form['publisher'].invalid &&
-                    (form['publisher']?.errors?.['minlength'] || form['publisher']?.errors?.['maxlength']))
+                    (form['publisher'].errors?.['minlength'] || form['publisher'].errors?.['maxlength']))
                     {
                     <mat-error>The Description must be between 5 and 60 characters.</mat-error>
                     }
@@ -112,12 +117,12 @@
                     <mat-label>Year</mat-label>
                     <input matInput [formControlName]="'year'">
                     @if ((submitted || form['year'].touched) && form['year'].invalid &&
-                    form['year']?.errors?.['required'])
+                    form['year'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
                     @if ((submitted || form['year'].touched) && form['year'].invalid &&
-                    form['year']?.errors?.['pattern'])
+                    form['year'].errors?.['pattern'])
                     {
                     <mat-error>The Year must be 4 digits.</mat-error>
                     }
@@ -127,12 +132,12 @@
                     <mat-label>Page Numbers</mat-label>
                     <input matInput [formControlName]="'pages'">
                     @if ((submitted || form['pages'].touched) && form['pages'].invalid &&
-                    form['pages']?.errors?.['required'])
+                    form['pages'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
                     @if ((submitted || form['pages'].touched) && form['pages'].invalid &&
-                    (form['pages']?.errors?.['max'] || form['pages']?.errors?.['pattern']))
+                    (form['pages'].errors?.['max'] || form['pages'].errors?.['pattern']))
                     {
                     <mat-error>The Page Numbers must be digits and limited to 9999.</mat-error>
                     }
@@ -150,7 +155,7 @@
                     <mat-label>Rating</mat-label>
                     <input matInput [formControlName]="'rating'">
                     <mat-hint>Please provide a rating on a scale of 1 to 5.</mat-hint>
-                    @if ((submitted || form['rating'].touched) && form['rating'].invalid && (form['rating']?.errors?.['max'] || form['rating']?.errors?.['pattern']))
+                    @if ((submitted || form['rating'].touched) && form['rating'].invalid && (form['rating'].errors?.['max'] || form['rating'].errors?.['pattern']))
                     {
                     <mat-error>The Rating must be only digits not greater than 5.</mat-error>
                     }
@@ -160,12 +165,12 @@
                     <mat-label>ISBN-10</mat-label>
                     <input matInput [formControlName]="'isbn10'">
                     @if ((submitted || form['isbn10'].touched) && form['isbn10'].invalid &&
-                    form['isbn10']?.errors?.['required'])
+                    form['isbn10'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
                     @if ((submitted || form['isbn10'].touched) && form['isbn10'].invalid &&
-                    form['isbn10']?.errors?.['pattern']) {
+                    form['isbn10'].errors?.['pattern']) {
                     <mat-error>The ISBN-10 must be 10 digits.</mat-error>
                     }
                 </mat-form-field>
@@ -174,12 +179,12 @@
                     <mat-label>ISBN-13</mat-label>
                     <input matInput [formControlName]="'isbn'">
                     @if ((submitted || form['isbn'].touched) && form['isbn'].invalid &&
-                    form['isbn']?.errors?.['required'])
+                    form['isbn'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
                     @if ((submitted || form['isbn'].touched) && form['isbn'].invalid &&
-                    form['isbn']?.errors?.['pattern']) {
+                    form['isbn'].errors?.['pattern']) {
                     <mat-error>The ISBN-13 must be 13 digits.</mat-error>
                     }
                 </mat-form-field>

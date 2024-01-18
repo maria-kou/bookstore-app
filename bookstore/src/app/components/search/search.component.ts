@@ -57,7 +57,7 @@ export class BookStoreSearchComponent {
                 let years: number[] = [];
 
                 this.books.forEach(book => {
-                    book.categories?.forEach(c => categories.push(c));
+                    book.categories?.forEach(c => categories.push(c.toLowerCase()));
                     years.push(new Date(book.published).getFullYear());
                 })
 
