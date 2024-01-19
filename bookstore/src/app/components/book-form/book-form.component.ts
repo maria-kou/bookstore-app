@@ -104,7 +104,7 @@ export class BookStoreBookFormComponent {
     }
 
     resetForm() {
-        
+        this.submitted = false;
         this.formGroup.reset();
     }
 

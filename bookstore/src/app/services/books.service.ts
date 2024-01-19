@@ -7,24 +7,10 @@ import { books as savedBooks } from "../shared/books";
     providedIn: 'root'
 })
 export class BooksService {
-    books = new BehaviorSubject<Book[]>([]);
-
-
-    getBooks() {
-       
-        let storageBook = JSON.parse(localStorage.getItem('books')!) ?? [];
-        const books: Book[] = [...storageBook, ...savedBooks];
-
-        this.books.next(books);
-
-
-    }
-
+    books = new BehaviorSubject<Book[]>(savedBooks);
  
     createBook(newBook: Book) {
         const updatedValue = [newBook, ...this.books.value];
         this.books.next(updatedValue);
-        
-        localStorage.setItem('books', JSON.stringify(updatedValue));
     }
 }

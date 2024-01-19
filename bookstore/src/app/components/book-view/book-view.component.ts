@@ -27,7 +27,6 @@ export class BookStoreBookViewComponent {
     bookIsbn: string = '';
 
     constructor(private route: ActivatedRoute, private router: Router, private service: BooksService) {
-        this.service.getBooks();
 
         this.service.books.subscribe(data => {
             if (data) {
