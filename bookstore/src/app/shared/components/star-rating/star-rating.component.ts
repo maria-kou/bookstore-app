@@ -31,7 +31,6 @@ export class BookStoreStarRatingComponent {
   
   
     ngOnInit() {
-      
       for (let index: number = 0; index < this.starCount; index++) {
         this.ratingArr.push(index);
       }

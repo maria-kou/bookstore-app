@@ -34,19 +34,19 @@
 
                 <mat-form-field class="w-full">
                     <mat-label>Description</mat-label>
-                    <input matInput [formControlName]="'subtitle'">
-                    @if ((submitted || form['subtitle'].touched) && form['subtitle'].invalid &&
-                    form['subtitle'].errors?.['required'])
+                    <input matInput [formControlName]="'description'">
+                    @if ((submitted || form['description'].touched) && form['description'].invalid &&
+                    form['description'].errors?.['required'])
                     {
                     <mat-error>The field is required.</mat-error>
                     }
-                    @if ((submitted || form['subtitle'].touched) && form['subtitle'].invalid &&
-                    form['subtitle'].errors?.['maxlength'])
+                    @if ((submitted || form['description'].touched) && form['description'].invalid &&
+                    form['description'].errors?.['maxlength'])
                     {
                     <mat-error>The description must be limited to a maximum of 520 characters.</mat-error>
                     }
-                    @if ((submitted || form['subtitle'].touched) && form['subtitle'].invalid &&
-                    form['subtitle'].errors?.['pattern'])
+                    @if ((submitted || form['description'].touched) && form['description'].invalid &&
+                    form['description'].errors?.['pattern'])
                     {
                     <mat-error>The first letter must be capital.</mat-error>
                     }

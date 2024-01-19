@@ -51,7 +51,7 @@ export class BookStoreBookFormComponent {
             isbn: new FormControl("", [Validators.required, Validators.pattern('^[0-9]{13}$')]),
             isbn10: new FormControl("", [Validators.required, Validators.pattern('^[0-9]{10}$')]),
             title: new FormControl("", [Validators.required, Validators.minLength(10), Validators.maxLength(120), Validators.pattern('^[ A-Za-z@”#&*!]*$')]),
-            subtitle: new FormControl("", [Validators.required, Validators.maxLength(512), Validators.pattern('^[A-Z][a-zA-Z\\s]*$')]),
+            description: new FormControl("", [Validators.required, Validators.maxLength(512), Validators.pattern('^[A-Z][a-zA-Z\\s]*$')]),
             author: new FormControl("", Validators.required),
             secondAuthor: new FormControl(""),
             thirdAuthor: new FormControl(""),
@@ -104,7 +104,6 @@ export class BookStoreBookFormComponent {
     }
 
     resetForm() {
-        this.submitted = false;
         this.formGroup.reset();
     }
 

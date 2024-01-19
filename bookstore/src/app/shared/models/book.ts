@@ -10,7 +10,7 @@ export class Book {
     publisher: string;
     pages: number;
     description: string;
-    website: string; 
+    website?: string; 
     categories: Array<string>;
     imageUrl?: string;
     rating?: number;

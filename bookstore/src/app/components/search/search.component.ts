@@ -97,7 +97,7 @@ export class BookStoreSearchComponent {
         }
 
         if (this.selectedCategory) {
-            this.resultBooks = this.resultBooks.filter(book => book.categories?.find(c => c === this.selectedCategory));
+            this.resultBooks = this.resultBooks.filter(book => book.categories?.find(c => c.toLowerCase() === this.selectedCategory.toLowerCase()));
 
         }
     }

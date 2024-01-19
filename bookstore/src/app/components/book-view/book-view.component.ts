@@ -24,6 +24,7 @@ import { BooksService } from '../../services/books.service';
 export class BookStoreBookViewComponent {
     book: Book | undefined = new Book();
     books: Book[] = [];
+    filteredBooks: Book[] = [];
     bookIsbn: string = '';
 
     constructor(private route: ActivatedRoute, private router: Router, private service: BooksService) {
@@ -40,7 +41,7 @@ export class BookStoreBookViewComponent {
 
             this.book = this.books.find(book => book.isbn === this.bookIsbn);
             this.book!['year'] = new Date(this.book?.published!)?.getFullYear()!;
-            this.books = this.books.filter(book => book != this.book);
+            this.filteredBooks = this.books.filter(book => book != this.book);
         });
     }
 
@@ -50,7 +51,6 @@ export class BookStoreBookViewComponent {
 
 
     selectBook(book: Book) {
-       
         this.router.navigate(['/category', { bookIsbn: book.isbn }]);
     }
 }

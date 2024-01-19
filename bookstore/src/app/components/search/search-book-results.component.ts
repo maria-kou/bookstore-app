@@ -13,9 +13,8 @@ import { Book } from '../../shared/models/book';
       @for (book of data; track book.isbn) {
       <div class="flex flex-col gap-2 w-[240px] cursor-pointer" (click)="selectBook(book)">
           <div class=" h-[260px] bg-gray-50 rounded flex flex-col items-center justify-center">
-              <!-- <img/> -->
               @if(book?.imageUrl) {
-                <div class="w-full h-full bg-cover bg-no-repeat bg-center" id="imagePreview"
+                <div class="w-full h-full bg-cover bg-no-repeat bg-center rounded" id="imagePreview"
                                 [style.backgroundImage]="'url('+ book.imageUrl +')'">
                 </div>
               } @else {

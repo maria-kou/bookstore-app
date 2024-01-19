@@ -5,7 +5,7 @@
         <div class="flex flex-col md:w-1/3 max-w-[260px] min-h-[400px]">
             <div class="grow bg-gray-50 rounded flex flex-col items-center justify-center w-[260px] h-[319px]">
                 @if(book?.imageUrl) {
-                    <div class="w-full h-full bg-cover bg-no-repeat bg-center" id="imagePreview"
+                    <div class="w-full h-full bg-cover bg-no-repeat bg-center rounded" id="imagePreview"
                                     [style.backgroundImage]="'url('+ book?.imageUrl +')'">
                     </div>
                   } @else {
@@ -47,13 +47,12 @@
     <h1 class="!mt-16">Other Books you may like</h1>
     <swiper [slidesPerView]="'auto'" [spaceBetween]="20" [autoHeight]="true"  [pagination]="{ clickable: true }" 
     #swiper class="swiper max-w-full mb-4" [direction]="'horizontal'" [scrollbar]="{ draggable: true }">
-        <!-- (swiper)="onSwiper($event)" (slideChange)="onSlideChange()" -->
-        @for (book of books; track book) {
+        @for (book of filteredBooks; track book) {
             <ng-template swiperSlide class="!w-auto" >
                 <div class="flex flex-col cursor-pointer" (click)="selectBook(book)">
                     <div class="w-[180px] h-[260px] grow bg-gray-50 rounded flex flex-col items-center justify-center">
                         @if(book?.imageUrl) {
-                            <div class="w-full h-full bg-cover bg-no-repeat bg-center" id="imagePreview"
+                            <div class="w-full h-full bg-cover bg-no-repeat bg-center rounded" id="imagePreview"
                                             [style.backgroundImage]="'url('+ book?.imageUrl +')'">
                             </div>
                           } @else {
