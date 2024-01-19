@@ -5,7 +5,7 @@
         <mat-label>Search</mat-label>
         <input matInput type="text" [(ngModel)]="searchTerm" (ngModelChange)="search($event)">
         @if (searchTerm) {
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm=''" class="absolute w-6 h-6 -left-[18px] top-3">
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="searchTerm=''; search()" class="absolute w-6 h-6 -left-[18px] top-3">
             <mat-icon>close</mat-icon>
         </button>
         }

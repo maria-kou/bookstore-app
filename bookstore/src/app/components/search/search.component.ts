@@ -66,7 +66,7 @@ export class BookStoreSearchComponent {
         })
     }
 
-    search(term: string) {
+    search(term?: string) {
         this.filterArray();
     }
 
