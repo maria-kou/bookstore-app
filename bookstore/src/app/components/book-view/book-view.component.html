@@ -45,7 +45,7 @@
         </div>
     </div>
     <h1 class="!mt-16">Other Books you may like</h1>
-    <swiper [slidesPerView]="'auto'" [spaceBetween]="20" [autoHeight]="true"  [pagination]="{ clickable: true }" 
+    <swiper [slidesPerView]="'auto'" [spaceBetween]="20" [autoHeight]="true"  [pagination]="true" 
     #swiper class="swiper max-w-full mb-4" [direction]="'horizontal'" [scrollbar]="{ draggable: true }">
         @for (book of filteredBooks; track book) {
             <ng-template swiperSlide class="!w-auto" >
