@@ -16,10 +16,10 @@
                 <mat-icon class="me-2">account_circle</mat-icon>
                 <span>{{book?.author}} </span>
                 @if(book?.secondAuthor) {
-                    <span>and {{book?.secondAuthor}} </span>
+                    <span> and {{book?.secondAuthor}} </span>
                 }
                 @if(book?.thirdAuthor) {
-                    <span>and {{book?.thirdAuthor}} </span>
+                    <span> and {{book?.thirdAuthor}} </span>
                 }
             </div>
             <bs-star-rating class="py-2" [rating]="book?.rating ?? 0"></bs-star-rating>
